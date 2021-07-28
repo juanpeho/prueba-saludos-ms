@@ -1,5 +1,7 @@
 package com.saludos.pruebasaludosms.domain.service;
 
-public class SaludoService {
-    
+public interface SaludoService {
+
+    String saludar(String tipoId, String numeroId, String nombre);
+    String consultarSaludo(String tipoId, String numeroId);
 }
