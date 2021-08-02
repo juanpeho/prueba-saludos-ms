@@ -5,7 +5,9 @@ import com.saludos.pruebasaludosms.domain.repository.SaludoRepository;
 import com.saludos.pruebasaludosms.domain.service.SaludoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SaludoServiceImpl implements SaludoService {
 
     private final SaludoRepository repository;

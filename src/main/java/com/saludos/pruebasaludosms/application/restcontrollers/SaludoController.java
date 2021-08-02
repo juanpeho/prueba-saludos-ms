@@ -24,11 +24,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @RequestMapping("/saludos")
 public class SaludoController {
     
-    private final SaludoService saludoService;
+    private SaludoService saludoService;
     
     @Autowired
-    public SaludoController(SaludoService saludoService) {
-        this.saludoService = saludoService;
+    public SaludoController(SaludoService service) {
+        this.saludoService = service;
     }
 
     @Operation(summary = "Genera un saludo", description = "Construye y almacena el saludo para los parametros ingresados.", tags = {"Saludo"})
