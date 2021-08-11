@@ -29,7 +29,7 @@ public class SaludoServiceImpl implements SaludoService {
                          .getSaludoCompuesto();
     }
 
-    private Saludo construirSaludo(String tipoId, String numeroId, String nombre) {
+    protected Saludo construirSaludo(String tipoId, String numeroId, String nombre) {
         return(new Saludo(tipoId + numeroId, "Te saludo a ti " + nombre + ", con ID: " + tipoId + numeroId));
     }
     

@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@WebMvcTest(SaludoControllerTest.class)
+@WebMvcTest(SaludoController.class)
 class SaludoControllerTest {
 
     private String SALUDO_VALID_REQUEST = "{\"tipoId\":\"CC\",\"numeroId\":\"123456789\",\"nombre\":\"Juan Perez\"}";
@@ -26,6 +26,7 @@ class SaludoControllerTest {
     private String SALUDO_REQUEST_WITHOUT_NOMBRE = "{\"tipoId\":\"CC\",\"numeroId\":\"123456789\"}";
     private String SALUDO_RESPONSE = "Te saludo a ti Juan Perez, con ID: CC123456789"; 
     private String SALUDO_NOTFOUND_RESPONSE = "No existe saludo con ID: CC12345"; 
+    
     
     @Autowired
     private MockMvc mockMvc;
@@ -37,7 +38,7 @@ class SaludoControllerTest {
     void whenPostSaludar_withValidRequest_thenSucceedAndSaludar() throws Exception {
         Mockito.when(saludoService.saludar(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(SALUDO_RESPONSE);
 
-        mockMvc.perform(post("/saludar")
+        this.mockMvc.perform(post("/saludar")
                         .content(SALUDO_VALID_REQUEST)
                         .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
