@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "b8d05d53-143e-4e13-ac95-98da5b249d67",
+		"name": "Saludos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SaludosAPI",
+			"item": [
+				{
+					"name": "Saludar - LOCALHOST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoId\":\"CC\",\r\n    \"numeroId\":\"123456789\",\r\n    \"nombre\":\"Pepito Pérez\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/pruebasaludo/saludos/saludar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pruebasaludo",
+								"saludos",
+								"saludar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ping - LOCALHOST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pruebasaludo/saludos/ping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pruebasaludo",
+								"saludos",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar saludo - LOCALHOST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pruebasaludo/saludos/consultar/CC/123456789",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pruebasaludo",
+								"saludos",
+								"consultar",
+								"CC",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ping - Azure appservice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://app-pruebasaludos-001.azurewebsites.net/pruebasaludo/saludos/ping",
+							"protocol": "https",
+							"host": [
+								"app-pruebasaludos-001",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"pruebasaludo",
+								"saludos",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar saludo - Azure appservice",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://app-pruebasaludos-001.azurewebsites.net/pruebasaludo/saludos/consultar/CC/123457",
+							"protocol": "https",
+							"host": [
+								"app-pruebasaludos-001",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"pruebasaludo",
+								"saludos",
+								"consultar",
+								"CC",
+								"123457"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Saludar - Azure appservice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoId\":\"CC\",\r\n    \"numeroId\":\"123457\",\r\n    \"nombre\":\"Cristian Carrillo\"\r\n}"
+						},
+						"url": {
+							"raw": "https://app-pruebasaludos-001.azurewebsites.net/pruebasaludo/saludos/saludar",
+							"protocol": "https",
+							"host": [
+								"app-pruebasaludos-001",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"pruebasaludo",
+								"saludos",
+								"saludar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

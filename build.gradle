@@ -2,7 +2,25 @@ plugins {
 	id 'org.springframework.boot' version '2.5.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("${buildDir}/customJacocoReportDir")
+}
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        xml.destination file("${buildDir}/jacocoxml/jacocoxml.xml")
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+jacocoTestReport.dependsOn(test)
+
+jar.dependsOn(jacocoTestReport)
 
 group = 'com.saludos'
 version = '0.0.1-SNAPSHOT'

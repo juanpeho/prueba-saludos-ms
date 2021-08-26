@@ -1,0 +1,85 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+resources:
+  repositories:
+    - repository: fuentes-ms
+      type: git
+      ref: master
+      name: Pruebas_Cami/azurerepo-prueba-saludos-ms
+      trigger:
+      - master
+
+stages:
+  - stage: IC
+    jobs:
+      - job: Compilation
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: fuentes-ms
+          - task: Gradle@2
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'clean build -x test'
+              publishJUnitResults: false
+              javaHomeOption: 'JDKVersion'
+              sonarQubeRunAnalysis: false
+              spotBugsAnalysis: false
+            displayName: GradleCompilation
+          - task: Gradle@2
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'test jacocoTestReport'
+              publishJUnitResults: false
+              javaHomeOption: 'JDKVersion'
+              sonarQubeRunAnalysis: false
+              spotBugsAnalysis: false
+            displayName: UnitaryTest
+          - task: CmdLine@2
+            inputs:
+              script: 'echo Hello world StaticAnalysis'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(System.DefaultWorkingDirectory)'
+              ArtifactName: 'drop/repo'
+              publishLocation: 'Container'
+            displayName: PublishRepository
+
+
+  - stage: Deploy
+    dependsOn: IC
+    condition: succeeded()
+    jobs:
+      - job: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              itemPattern: 'drop/repo/**'
+              downloadPath: '$(System.DefaultWorkingDirectory)'
+            displayName: BinaryDownload
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'pruebasaludos_ServiceConnection'
+              repository: 'saludos'
+              command: 'buildAndPush'
+              Dockerfile: '$(System.DefaultWorkingDirectory)/drop/repo/Dockerfile'
+            displayName: ContainerRegistryImageLoading
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: 'pruebasaludos_ResouceManager'
+              appName: 'app-pruebasaludos-001'
+              deployToSlotOrASE: true
+              resourceGroupName: 'rg-pruebasaludos-001'
+              slotName: 'production'
+              containers: 'crpruebasaludos001.azurecr.io/saludos:$(Build.BuildId)'
+            displayName: AppServiceDeploy
